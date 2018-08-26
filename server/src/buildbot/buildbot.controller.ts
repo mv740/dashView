@@ -16,6 +16,6 @@ export class BuildbotController {
 
     @Get()
     root(): string {
-        return 'testController';
+        return 'buildbotController';
       }
 }
