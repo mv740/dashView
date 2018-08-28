@@ -12,9 +12,16 @@
     "sourceMap": true,
     "allowJs": true,
     "outDir": "./dist",
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "rootDirs": [
+      "./src/",
+      "../shared/src"
+    ],
+    "paths": {
+      "shared/*" : ["../shared/src/*"]
+    }
   },
   "include": [
     "src/**/*"

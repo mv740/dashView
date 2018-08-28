@@ -1,3 +1,5 @@
+import { IBuilder } from './../../../shared/src/buildbot/IBuilder';
+import { IBuilderResponse } from 'shared/buildbot/Response/IBuilderResponse';
 import { Controller, Get } from '@nestjs/common';
 import { BuildbotService } from './buildbot.service';
 import {map} from 'rxjs/operators';
@@ -8,10 +10,7 @@ export class BuildbotController {
 
     @Get('test')
     async getBuilders() {
-        return await this.buildbotService.getBuilders().pipe(
-            map(response => response.data),
-          );
-
+        return await this.buildbotService.getBuilders();
     }
 
     @Get()

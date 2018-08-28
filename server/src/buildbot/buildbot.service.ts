@@ -1,3 +1,5 @@
+import { map } from 'rxjs/operators';
+import { IBuilderResponse } from 'shared/buildbot/Response/IBuilderResponse';
 import { Injectable, HttpService } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { AxiosResponse } from 'axios';
@@ -30,7 +32,9 @@ export class BuildbotService {
 
     authenticate(httpService, this.cookie);
   }
-  getBuilders(): Observable<AxiosResponse<any>> {
-    return  this.httpService.get('/api/v2/builders');
+  getBuilders(): Observable<IBuilderResponse> {
+    return  this.httpService.get('/api/v2/builders').pipe(
+      map(response => response.data as IBuilderResponse),
+    );
   }
 }
