@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BuildbotDashboardComponent } from './buildbot-dashboard/buildbot-dashboard.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatChipsModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
 import { MatListModule} from '@angular/material/list';
@@ -28,7 +28,8 @@ import { BuilderCardComponent } from './buildbot-dashboard/builder-card/builder-
     MatIconModule,
     MatButtonModule,
     MatListModule,
-    LayoutModule
+    LayoutModule,
+    MatChipsModule
   ],
   providers: [ BuildbotService ],
   bootstrap: [AppComponent]
