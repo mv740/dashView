@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { IBuilderResponse } from 'shared/buildbot/Response/IBuilderResponse';
+import { BuilderResponse } from 'shared/buildbot/response/builder-response.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -11,7 +11,7 @@ export class BuildbotService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getBuilds(): Observable<IBuilderResponse>  {
-    return this.httpClient.get<IBuilderResponse>(this.backendUrl + '/buildbot/test');
+  getBuilds(): Observable<BuilderResponse>  {
+    return this.httpClient.get<BuilderResponse>(this.backendUrl + '/buildbot/test');
   }
 }

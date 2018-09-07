@@ -1,4 +1,4 @@
-import { IBuilder } from 'shared/buildbot/IBuilder';
+import { Builder } from 'shared/buildbot/builder.model';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -9,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class BuilderCardComponent implements OnInit {
 
   isActive: boolean;
-  @Input() builderData: IBuilder;
+  @Input() builderData: Builder;
   constructor() { }
 
   ngOnInit() {

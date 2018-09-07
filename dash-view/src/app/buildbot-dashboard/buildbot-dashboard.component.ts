@@ -2,7 +2,7 @@ import { BuildbotService } from './buildbot.service';
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, ChangeDetectorRef } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { IBuilder } from 'shared/buildbot/IBuilder';
+import { Builder } from 'shared/buildbot/builder.model';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 export class BuildbotDashboardComponent implements OnInit {
 
   /** Based on the screen size, switch from standard to one column per row */
-  @Input() builders: IBuilder[] = [];
+  @Input() builders: Builder[] = [];
 
   breakpoint: number;
 
