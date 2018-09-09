@@ -1,9 +1,7 @@
 import { BuildbotService } from './buildbot.service';
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, ChangeDetectorRef } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, OnChanges } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Builder } from 'shared/buildbot/builder.model';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-buildbot-dashboard',
@@ -22,11 +20,12 @@ export class BuildbotDashboardComponent implements OnInit {
   constructor(private changeDetectorRef: ChangeDetectorRef, private breakpointObserver: BreakpointObserver, private readonly buildbotService: BuildbotService) {
     // called first time before the ngOnInit()
   }
+
   ngOnInit() {
     // called after the constructor and called  after the first ngOnChanges()
     this.breakpoint = this.GetGridListCol(window.innerWidth);
 
-    this.buildbotService.getBuilds().subscribe(result => {
+    this.buildbotService.getBuilders().subscribe(result => {
       for (const value of result.builders) {
         console.log(value.name);
         this.builders.push(value);
@@ -34,6 +33,7 @@ export class BuildbotDashboardComponent implements OnInit {
       this.changeDetectorRef.detectChanges();
     });
   }
+
   onResize(event) {
     this.breakpoint = this.GetGridListCol(event.target.innerWidth); // (event.target.innerWidth <= 400) ? 1 : 6;
   }

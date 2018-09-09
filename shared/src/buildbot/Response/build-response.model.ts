@@ -1,13 +1,13 @@
-import { Build } from "../build";
-import { Meta } from "../meta";
-
 /**
  *
  *
  * @export
  * @interface BuildResponse
  */
+import { Meta } from '../meta.model';
+import { Build } from '../build.model';
+
 export interface BuildResponse {
     builds: Build[];
-    meta:   Meta;
+    meta: Meta;
 }

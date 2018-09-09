@@ -2,3 +2,7 @@
 server/node_modules/
 
 server/src/buildbot/buildbot\.config\.json
+
+server/coverage/
+
+\.idea/

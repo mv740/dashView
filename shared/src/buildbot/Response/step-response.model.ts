@@ -1,13 +1,8 @@
-import { Meta } from './../meta';
-import { Step } from "../step";
 
-/**
- *
- *
- * @export
- * @interface StepResponse
- */
+import { Meta } from '../meta.model';
+import { Step } from '../step.model';
+
 export interface StepResponse {
-    meta:  Meta;
+    meta: Meta;
     steps: Step[];
 }

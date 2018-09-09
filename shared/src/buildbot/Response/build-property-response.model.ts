@@ -1,6 +1,3 @@
-import { Meta } from './../meta';
-import { BuildProperty } from "../build-property";
-
 /**
  * http://docs.buildbot.net/latest/developer/rest.html#id25
  * all properties of a build
@@ -8,7 +5,10 @@ import { BuildProperty } from "../build-property";
  * @export
  * @interface BuildPropertyResponse
  */
+import { BuildProperty } from '../build-property.model';
+import { Meta } from '../meta.model';
+
 export interface BuildPropertyResponse {
-    meta:       Meta;
+    meta: Meta;
     properties: BuildProperty[];
 }

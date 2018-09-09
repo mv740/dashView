@@ -1,5 +1,5 @@
 /**
- * metadata 
+ * metadata
  *
  * @export
  * @interface Meta

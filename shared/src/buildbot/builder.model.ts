@@ -2,7 +2,7 @@
 /**
  * This resource type describes a builder.
  * http://docs.buildbot.net/latest/developer/rest.html#builder
- * 
+ *
  * @export
  * @interface Builder
  */
