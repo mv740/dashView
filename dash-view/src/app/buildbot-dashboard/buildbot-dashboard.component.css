@@ -1,5 +1,5 @@
 .grid-container {
-  margin: 20px;
+  margin: 10px;
 }
 
 .dashboard-card {
@@ -10,11 +10,11 @@
   bottom: 15px;
 }
 
-.more-button {
-  position: absolute;
-  top: 5px;
-  right: 10px;
-}
+/*.more-button {*/
+  /*position: absolute;*/
+  /*top: 5px;*/
+  /*right: 10px;*/
+/*}*/
 
 .dashboard-card-content {
   text-align: center;

@@ -5,6 +5,7 @@ import { BuildResponse } from 'shared/buildbot/response/build-response.model';
 import { Observable } from 'rxjs';
 import { Build } from 'shared/buildbot/build.model';
 import { map } from 'rxjs/operators';
+import { Builder } from 'shared/buildbot/builder.model';
 
 @Injectable()
 export class BuildbotService {
@@ -14,13 +15,21 @@ export class BuildbotService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getBuilders(): Observable<BuilderResponse> {
-    return this.httpClient.get<BuilderResponse>(this.backendUrl + '/buildbot/builders');
+  getBuilders(): Observable<Builder[]> {
+    return this.httpClient.get<BuilderResponse>(this.backendUrl + '/buildbot/builders').pipe(
+      map(response => response.builders),
+    );
   }
 
   getBuilderBuilds(builderId: number): Observable<Build[]> {
     return this.httpClient.get<BuildResponse>(this.backendUrl + `/buildbot/builders/${builderId}/builds?limit=3`).pipe(
-      map(response => response.builds as Build[]),
+      map(response => response.builds),
+    );
+  }
+
+  getPendingBuilds(): Observable<number> {
+    return this.httpClient.get<BuildResponse>(this.backendUrl + '/buildbot/progress').pipe(
+      map(response => response.meta.total)
     );
   }
 }

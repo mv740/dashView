@@ -10,6 +10,13 @@ mat-card {
     margin: 0.5em;
 }
 
+mat-card mat-chip.rectangleChip{
+  border-radius: 0px;
+}
+
+.mat-card-content>:last-child:not(.mat-card-footer), .mat-card>:last-child:not(.mat-card-footer) {
+  width: 100%
+}
 @keyframes borderWidth {
     /* yellow 500 to A100 */
     from {
@@ -61,3 +68,20 @@ mat-card.failure {
     display: flex;
     flex: 1;
   }
+
+table {
+  width: 100%;
+}
+
+/*.mat-table > thead {*/
+  /*display: none !important;*/
+/*}*/
+
+.mat-header-row {
+  display: none;
+}
+
+td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+  border: none;
+  font-size: 12px;
+}

@@ -6,3 +6,7 @@ server/src/buildbot/buildbot\.config\.json
 server/coverage/
 
 \.idea/
+
+server/dist/
+
+shared/dist/

@@ -1,37 +1,32 @@
 import { BuildbotService } from './buildbot.service';
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, OnChanges } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Builder } from 'shared/buildbot/builder.model';
+import { Observable } from 'rxjs';
+import { NotificationType} from './notification-card/notification.type';
 
 @Component({
   selector: 'app-buildbot-dashboard',
   templateUrl: './buildbot-dashboard.component.html',
-  styleUrls: ['./buildbot-dashboard.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./buildbot-dashboard.component.css']
 })
 export class BuildbotDashboardComponent implements OnInit {
 
   /** Based on the screen size, switch from standard to one column per row */
-  @Input() builders: Builder[] = [];
+  builders: Observable<Builder[]>;
 
   breakpoint: number;
+  NotificationType = NotificationType;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private changeDetectorRef: ChangeDetectorRef, private breakpointObserver: BreakpointObserver, private readonly buildbotService: BuildbotService) {
+  constructor(private breakpointObserver: BreakpointObserver, private readonly buildbotService: BuildbotService) {
     // called first time before the ngOnInit()
   }
 
   ngOnInit() {
     // called after the constructor and called  after the first ngOnChanges()
     this.breakpoint = this.GetGridListCol(window.innerWidth);
-
-    this.buildbotService.getBuilders().subscribe(result => {
-      for (const value of result.builders) {
-        console.log(value.name);
-        this.builders.push(value);
-      }
-      this.changeDetectorRef.detectChanges();
-    });
+    this.builders = this.buildbotService.getBuilders();
   }
 
   onResize(event) {
@@ -40,9 +35,11 @@ export class BuildbotDashboardComponent implements OnInit {
 
   // TODO add extra rules
   GetGridListCol(width) {
-    if (width <= 1920 && 960 < width) {
+    console.log(`width : ${width}`);
+    if (width <= 2000 && 960 < width) {
+      // if using 1920 sometime we get width = 1922
       // 1080p screen
-      return 5;
+      return 4;
     }
 
     if (width <= 960 && 400 < width) {

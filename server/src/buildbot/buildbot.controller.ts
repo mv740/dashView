@@ -29,6 +29,7 @@ export class BuildbotController {
   @Get('progress')
   async getProgress() {
     return await this.buildbotService.getBuildsInProgress();
+
   }
 
   @Get()

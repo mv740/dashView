@@ -1,0 +1,11 @@
+<mat-card [style.color]="type">
+  <mat-card-header>
+    <mat-card-title>{{title}}</mat-card-title>
+    <!--<mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+  </mat-card-header>
+  <mat-card-content style="display: flex; justify-content: center">
+    <h1>
+      {{message | async}}
+    </h1>
+  </mat-card-content>
+  </mat-card>
