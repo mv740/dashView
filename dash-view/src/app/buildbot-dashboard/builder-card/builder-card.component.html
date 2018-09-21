@@ -1,14 +1,14 @@
-<mat-card [ngClass]="ErrorOnLastBuild ? 'failure' : 'success'"
-          [class.mat-elevation-z2]="!isActive"
+<mat-card [class.mat-elevation-z2]="!isActive"
           [class.mat-elevation-z10]="isActive"
-          (mouseenter)="isActive=true" (mouseleave)="isActive=false">
-  <mat-card-header>
+          (mouseenter)="isActive=true" (mouseleave)="isActive=false"
+          >
+  <mat-card-header [ngClass]="ErrorOnLastBuild ? 'failure' : 'success'">
     <mat-card-title >
-      {{builderData.name}}
+      <h4 class="center-text">  {{builderData.name}}</h4>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content flex class="dashboard-card-content">
-    <mat-divider></mat-divider>
+    <!--<mat-divider></mat-divider>-->
     <div>
       <mat-list dense>
         <!--https://youtrack.jetbrains.com/issue/WEB-32320-->

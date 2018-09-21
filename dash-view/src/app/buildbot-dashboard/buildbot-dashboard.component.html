@@ -1,11 +1,22 @@
 <div class="grid-container">
   <!--<h1 class="mat-h1">Dashboard</h1>-->
-  <mat-list>
-    <app-notification-card title="Pending Builds" [type]='NotificationType.Warning'></app-notification-card>
-  </mat-list>
-  <mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)">
-    <mat-grid-tile *ngFor="let value of (builders) | async as Builder">
-      <app-builder-card [builderData]="value"></app-builder-card>
+  <mat-grid-list cols="4" gutterSize="24px" rowHeight="100px" style="padding-bottom: 24px">
+    <mat-grid-tile>
+      <app-notification-card title="Pending Builds" [type]='NotificationType.Warning'></app-notification-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <app-notification-card title="Test 0" [type]='NotificationType.Warning'></app-notification-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <app-notification-card title="Test 1" [type]='NotificationType.Warning'></app-notification-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <app-notification-card title="Test 2" [type]='NotificationType.Warning'></app-notification-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list [cols]="breakpoint" gutterSize="24px" rowHeight="320px" (window:resize)="onResize($event)">
+    <mat-grid-tile *ngFor="let builder of (builders) | async">
+      <app-builder-card [builderData]="builder"></app-builder-card>
     </mat-grid-tile>
   </mat-grid-list>
 </div>

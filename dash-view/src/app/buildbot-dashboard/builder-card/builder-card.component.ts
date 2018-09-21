@@ -1,5 +1,5 @@
 import { Builder } from 'shared/buildbot/builder.model';
-import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Build } from 'shared/buildbot/build.model';
 import { BuildbotService } from '../buildbot.service';
 import { Observable, Subscription } from 'rxjs';
@@ -7,7 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 @Component({
   selector: 'app-builder-card',
   templateUrl: './builder-card.component.html',
-  styleUrls: ['./builder-card.component.css'],
+  styleUrls: ['./builder-card.component.css']
 })
 export class BuilderCardComponent implements OnChanges, OnDestroy {
 
@@ -30,7 +30,7 @@ export class BuilderCardComponent implements OnChanges, OnDestroy {
 
   getColor(status: number): string {
 
-    return status === 0 ? 'green' : 'red';
+    return status === 0 ? '#00c292' : '#e46a76';
   }
 
   getStatusIcon(status: number): string {

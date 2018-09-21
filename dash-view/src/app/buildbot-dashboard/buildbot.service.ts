@@ -16,8 +16,11 @@ export class BuildbotService {
   }
 
   getBuilders(): Observable<Builder[]> {
+    // if masterids ==0 then old builder  => remove
     return this.httpClient.get<BuilderResponse>(this.backendUrl + '/buildbot/builders').pipe(
-      map(response => response.builders),
+    map(response => response.builders
+      .filter( (builder) => builder.masterids.length !== 0)),
+
     );
   }
 

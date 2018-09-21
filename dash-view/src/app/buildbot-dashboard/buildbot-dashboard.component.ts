@@ -36,10 +36,16 @@ export class BuildbotDashboardComponent implements OnInit {
   // TODO add extra rules
   GetGridListCol(width) {
     console.log(`width : ${width}`);
-    if (width <= 2000 && 960 < width) {
+    if (width <= 2000 && 1050 < width) {
       // if using 1920 sometime we get width = 1922
       // 1080p screen
       return 4;
+    }
+
+
+    if (width <= 1050 && 960 < width) {
+      // 720p screen
+      return 3;
     }
 
     if (width <= 960 && 400 < width) {
@@ -50,6 +56,6 @@ export class BuildbotDashboardComponent implements OnInit {
     if (width <= 400) {
       return 1;
     }
-    return 6;
+    return 4;
   }
 }

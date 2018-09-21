@@ -5,4 +5,13 @@ $primary: mat-palette($mat-orange, 800);
 $accent:  mat-palette($mat-light-blue, 600, 100, 800);
 $warn:    mat-palette($mat-red, 600);
 $theme: mat-dark-theme($primary, $accent, $warn);
+
+$custom-typography: mat-typography-config(
+  $font-family: 'Poppins, sans-serif'
+  //$headline: mat-typography-level(32px, 48px, 700),
+  //$body-1: mat-typography-level(16px, 24px, 500)
+);
+
+@include mat-core($custom-typography);
+
 @include angular-material-theme($theme);
