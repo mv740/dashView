@@ -1,10 +1,10 @@
-import { StepResponse } from 'shared/buildbot/response/step-response.model';
-import { BuildPropertyResponse } from 'shared/buildbot/response/build-property-response.model';
-import { BuildResponse } from 'shared/buildbot/response/build-response.model';
 import { map } from 'rxjs/operators';
-import { BuilderResponse } from 'shared/buildbot/response/builder-response.model';
 import { HttpService, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
+import { BuilderResponse } from '@shared/buildbot/response/builder-response.model';
+import { BuildResponse } from '@shared/buildbot/response/build-response.model';
+import { StepResponse } from '@shared/buildbot/response/step-response.model';
+import { BuildPropertyResponse } from '@shared/buildbot/response/build-property-response.model';
 
 const authenticate = (http: HttpService, cookie) => {
   http.get('/auth/login', {
@@ -34,7 +34,6 @@ export class BuildbotService {
 
     authenticate(httpService, this.cookie);
   }
-
   /**
    * Return All builders information
    *

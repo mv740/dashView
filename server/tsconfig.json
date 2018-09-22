@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "declaration": false,
+    "declaration": true,
     "noImplicitAny": false,
     "removeComments": true,
     "noLib": false,
@@ -10,19 +10,20 @@
     "experimentalDecorators": true,
     "target": "es6",
     "sourceMap": true,
-    "allowJs": true,
     "outDir": "./dist",
-    "baseUrl": "./",
-    "resolveJsonModule": true,
     "esModuleInterop": true,
-    "rootDirs": [
-      "./src/",
-      "../shared/src"
-    ],
+    "resolveJsonModule": true,
+    "baseUrl": ".",
     "paths": {
-      "shared/*" : ["../shared/src/*"]
+      "@shared/*" : ["../shared/src/*"]
     }
   },
+  "rootDirs": [
+    "./src/",
+    "../shared/src"
+  ],
+
+
   "include": [
     "src/**/*"
   ],
