@@ -10,3 +10,5 @@ server/coverage/
 server/dist/
 
 shared/dist/
+
+server/src/gitlab/gitlab\.config\.json
