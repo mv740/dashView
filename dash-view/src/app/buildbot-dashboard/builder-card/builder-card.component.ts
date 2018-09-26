@@ -12,6 +12,7 @@ import { Observable, Subscription } from 'rxjs';
 export class BuilderCardComponent implements OnChanges, OnDestroy {
 
   ErrorOnLastBuild: boolean;
+  IsInProgress: boolean;
   @Input() builderData: Builder;
   builds: Observable<Array<Build>>;
   private buildsSubscription: Subscription;
@@ -24,7 +25,9 @@ export class BuilderCardComponent implements OnChanges, OnDestroy {
     this.buildsSubscription = this.builds.subscribe((builds) => {
       if (builds.length > 0) {
         this.ErrorOnLastBuild = builds[0].results !== 0;
+        this.IsInProgress = !builds[0].complete;
       }
+
     });
   }
 

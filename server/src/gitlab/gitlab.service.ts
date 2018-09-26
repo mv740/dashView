@@ -16,10 +16,10 @@ export class GitlabService {
     });
   }
 
-   async GetProjects(): Promise<Array<Project>>
+  GetProjects(): Promise<Array<Project>>
   {
     // without memership true, take 5+ seconds
     // maxPages: 1
-    return await this.gitlabApi.Projects.all({visibility: 'private', membership: true});
+    return this.gitlabApi.Projects.all({visibility: 'private', membership: true});
   }
 }

@@ -22,7 +22,7 @@ export class BuildbotController {
   }
 
   @Get('builders/:builderId/builds/:buildId')
-  async getBuild(@Param('builderId', new ParseIntPipe()) builderId, @Param('buildId', new ParseIntPipe()) buildId,) {
+  async getBuild(@Param('builderId', new ParseIntPipe()) builderId, @Param('buildId', new ParseIntPipe()) buildId) {
     return this.buildbotService.getBuild(builderId, buildId);
   }
 

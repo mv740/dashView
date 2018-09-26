@@ -12,8 +12,8 @@ describe('BuildbotService', () => {
     service = module.get<BuildbotService>(BuildbotService);
   });
   it('should be defined', () => {
-    expect(service).toBeDefined();
+     expect(service).toBeDefined();
   });
 
-  afterAll(() => setTimeout(() => process.exit(), 1000));
+ // afterAll(() => setTimeout(() => process.exit(), 1000));
 });

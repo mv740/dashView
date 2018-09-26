@@ -1,8 +1,12 @@
 <mat-card [class.mat-elevation-z2]="!isActive"
           [class.mat-elevation-z10]="isActive"
           (mouseenter)="isActive=true" (mouseleave)="isActive=false"
-          >
-  <mat-card-header [ngClass]="ErrorOnLastBuild ? 'failure' : 'success'">
+          [ngClass]="{ heartbeat: IsInProgress}">
+  <mat-card-header [ngClass]="{
+  'success': !ErrorOnLastBuild,
+  'failure': ErrorOnLastBuild,
+  'inProgress' : IsInProgress}"
+  >
     <mat-card-title >
       <h4 class="center-text">  {{builderData.name}}</h4>
     </mat-card-title>
@@ -14,9 +18,15 @@
         <!--https://youtrack.jetbrains.com/issue/WEB-32320-->
           <mat-list-item *ngFor="let build of builds | async">
             <p mat-line># {{build.buildid}}   {{ unixTimeToDateConverter(build.complete_at) | date:'MM/dd/yy hh:mm'}} </p>
-           <p>
+           <p *ngIf="!IsInProgress; else showLoading">
              <mat-icon [ngStyle]="{ color: getColor(build.results)}" >{{getStatusIcon(build.results)}}</mat-icon>
            </p>
+            <ng-template #showLoading>
+              <p>
+                <mat-icon svgIcon="in_progress_circle">in_progress_circle</mat-icon>
+              </p>
+            </ng-template>
+
           </mat-list-item>
       </mat-list>
     </div>
