@@ -1,14 +1,15 @@
 import { BuildbotService } from './buildbot.service';
-import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Builder } from 'shared/buildbot/builder.model';
 import { Observable } from 'rxjs';
-import { NotificationType} from './notification-card/notification.type';
+import { NotificationType } from './notification-card/notification.type';
+import { ServerInfo } from 'shared/buildbot/server-info.model';
 
 @Component({
   selector: 'app-buildbot-dashboard',
   templateUrl: './buildbot-dashboard.component.html',
-  styleUrls: ['./buildbot-dashboard.component.css']
+  styleUrls: ['./buildbot-dashboard.component.css'],
 })
 export class BuildbotDashboardComponent implements OnInit {
 
@@ -17,10 +18,15 @@ export class BuildbotDashboardComponent implements OnInit {
 
   breakpoint: number;
   NotificationType = NotificationType;
+  buildBotServerInfo: ServerInfo;
 
   // tslint:disable-next-line:max-line-length
   constructor(private breakpointObserver: BreakpointObserver, private readonly buildbotService: BuildbotService) {
     // called first time before the ngOnInit()
+    this.buildbotService.getServerInfo().subscribe((value => {
+      this.buildBotServerInfo = value;
+      console.log(this.buildBotServerInfo);
+    } ));
   }
 
   ngOnInit() {

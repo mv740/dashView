@@ -34,6 +34,7 @@ export class BuildbotService {
 
     authenticate(httpService, this.cookie);
   }
+
   /**
    * Return All builders information
    *
@@ -45,11 +46,17 @@ export class BuildbotService {
     );
   }
 
+  getBuildbotServerInfo() {
+    return {
+      url : this.httpService.axiosRef.defaults.baseURL,
+    };
+  }
+
   /**
    *  Get specific builder information
    * @param {number} builderId
    */
-  getBuilder(builderId: number): Observable<BuilderResponse>{
+  getBuilder(builderId: number): Observable<BuilderResponse> {
     return this.httpService.get(`/api/v2/builders/${builderId}`).pipe(
       map(response => response.data as BuilderResponse),
     );

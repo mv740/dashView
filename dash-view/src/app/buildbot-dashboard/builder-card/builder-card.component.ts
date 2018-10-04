@@ -1,31 +1,38 @@
 import { Builder } from 'shared/buildbot/builder.model';
-import { Component, Input, OnChanges, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Build } from 'shared/buildbot/build.model';
 import { BuildbotService } from '../buildbot.service';
 import { Observable, Subscription } from 'rxjs';
+import { ServerInfo } from 'shared/buildbot/server-info.model';
 
 @Component({
   selector: 'app-builder-card',
   templateUrl: './builder-card.component.html',
-  styleUrls: ['./builder-card.component.css']
+  styleUrls: ['./builder-card.component.css'],
+  // changeDetection: ChangeDetectionStrategy.Default
 })
 export class BuilderCardComponent implements OnChanges, OnDestroy {
-
-  ErrorOnLastBuild: boolean;
-  IsInProgress: boolean;
+  errorOnLastBuild: boolean;
+  isInProgress: boolean;
   @Input() builderData: Builder;
   builds: Observable<Array<Build>>;
   private buildsSubscription: Subscription;
+
+  @Input('serverInfo') serverInfo: ServerInfo;
+  infoUrl: string;
+  infoBuildUrl: string;
 
   constructor(private buildbotService: BuildbotService) {
   }
 
   ngOnChanges(): void {
+    this.infoUrl = `${this.serverInfo.url}/#/builders/${this.builderData.builderid}`;
+    this.infoBuildUrl = `${this.serverInfo.url}/#/builders/${this.builderData.builderid}/builds/`;
     this.builds = this.buildbotService.getBuilderBuilds(this.builderData.builderid);
     this.buildsSubscription = this.builds.subscribe((builds) => {
       if (builds.length > 0) {
-        this.ErrorOnLastBuild = builds[0].results !== 0;
-        this.IsInProgress = !builds[0].complete;
+        this.errorOnLastBuild = builds[0].results !== 0;
+        this.isInProgress = !builds[0].complete;
       }
 
     });
@@ -46,6 +53,10 @@ export class BuilderCardComponent implements OnChanges, OnDestroy {
    */
   unixTimeToDateConverter(unixtime: number): number {
     return unixtime * 1000;
+  }
+
+  openBuild($event, buildID: number) {
+    window.open(this.infoBuildUrl.concat(buildID.toString()));
   }
 
   ngOnDestroy(): void {

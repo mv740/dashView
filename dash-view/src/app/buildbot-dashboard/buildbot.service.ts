@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Build } from 'shared/buildbot/build.model';
 import { map } from 'rxjs/operators';
 import { Builder } from 'shared/buildbot/builder.model';
+import { ServerInfo } from 'shared/buildbot/server-info.model';
 
 @Injectable()
 export class BuildbotService {
@@ -34,5 +35,8 @@ export class BuildbotService {
     return this.httpClient.get<BuildResponse>(this.backendUrl + '/buildbot/progress').pipe(
       map(response => response.meta.total)
     );
+  }
+  getServerInfo(): Observable<ServerInfo> {
+    return this.httpClient.get<ServerInfo>(this.backendUrl + '/buildbot/info');
   }
 }

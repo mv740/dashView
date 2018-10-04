@@ -126,8 +126,6 @@ td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
   /*padding-top: 10px!important;*/
 }
 
-
-
 .center-text {
   text-align: center;
 }
@@ -135,7 +133,49 @@ td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
 h4{
   font-weight:300;
   font-size: 18px;
+}
 
+.ribbon-corner-bottom{
+  /*background-color: red;*/
+}
+
+.ribbon-corner-info{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  /*padding: 5px;*/
+  color: #424242;
+  margin-bottom: -25px;
+  margin-left: -25px;
+}
+
+.ribbon-corner-bottom:hover{
+  border-bottom-color: #424242;
+  border-left-color: #424242;
+}
+
+.ribbon-corner-bottom:hover .ribbon-corner-info{
+  color: #616161;
+}
+
+.ribbon-corner-bottom{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  content: '';
+  border: 30px solid transparent;
+  border-bottom-color: #616161;
+  border-left-color: #616161;
+}
+
+
+mat-list-item.mat-list-item-focus-hover:hover{
+  #background-color: #616161;
+  color: #616161;
+  font-style: italic;
+  cursor: pointer;
 }
 
 .heartbeat {

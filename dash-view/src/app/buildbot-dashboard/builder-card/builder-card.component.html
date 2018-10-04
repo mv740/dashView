@@ -1,13 +1,13 @@
 <mat-card [class.mat-elevation-z2]="!isActive"
-          [class.mat-elevation-z10]="isActive"
-          (mouseenter)="isActive=true" (mouseleave)="isActive=false"
-          [ngClass]="{ heartbeat: IsInProgress}">
+  [class.mat-elevation-z10]="isActive"
+  (mouseenter)="isActive=true" (mouseleave)="isActive=false"
+  [ngClass]="{ heartbeat: isInProgress}" >
   <mat-card-header [ngClass]="{
-  'success': !ErrorOnLastBuild,
-  'failure': ErrorOnLastBuild,
-  'inProgress' : IsInProgress}"
+  'success': !errorOnLastBuild,
+  'failure': errorOnLastBuild,
+  'inProgress' : isInProgress}"
   >
-    <mat-card-title >
+    <mat-card-title>
       <h4 class="center-text">  {{builderData.name}}</h4>
     </mat-card-title>
   </mat-card-header>
@@ -16,24 +16,30 @@
     <div>
       <mat-list dense>
         <!--https://youtrack.jetbrains.com/issue/WEB-32320-->
-          <mat-list-item *ngFor="let build of builds | async">
-            <p mat-line># {{build.buildid}}   {{ unixTimeToDateConverter(build.complete_at) | date:'MM/dd/yy hh:mm'}} </p>
-           <p *ngIf="!IsInProgress; else showLoading">
-             <mat-icon [ngStyle]="{ color: getColor(build.results)}" >{{getStatusIcon(build.results)}}</mat-icon>
-           </p>
-            <ng-template #showLoading>
-              <p>
-                <mat-icon svgIcon="in_progress_circle">in_progress_circle</mat-icon>
-              </p>
-            </ng-template>
-
-          </mat-list-item>
+        <mat-list-item
+          class="mat-list-item-focus-hover" *ngFor="let build of builds | async" (click)="openBuild($event, build.number)">
+          <p mat-line># {{build.number}}   {{ unixTimeToDateConverter(build.complete_at) | date:'MM/dd/yy hh:mm'}} </p>
+          <p *ngIf="!isInProgress; else showLoading">
+            <mat-icon [ngStyle]="{ color: getColor(build.results)}" >{{getStatusIcon(build.results)}}</mat-icon>
+          </p>
+          <ng-template #showLoading>
+            <p>
+              <mat-icon svgIcon="in_progress_circle">in_progress_circle</mat-icon>
+            </p>
+          </ng-template>
+        </mat-list-item>
       </mat-list>
     </div>
   </mat-card-content>
   <mat-card-actions align="end">
+    <a target='_blank' [href]="infoUrl" class="ribbon-corner-bottom">
+      <div>
+        <mat-icon class="ribbon-corner-info">help_outline</mat-icon>
+      </div>
+    </a>
     <mat-chip-list>
       <mat-chip class="rectangleChip" *ngFor="let tag of builderData.tags">{{tag}}</mat-chip>
     </mat-chip-list>
   </mat-card-actions>
+
 </mat-card>

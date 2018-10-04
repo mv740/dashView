@@ -36,4 +36,10 @@ export class BuildbotController {
   root(): string {
     return 'buildbotController';
   }
+
+
+  @Get('info')
+  getServerInfo() {
+    return this.buildbotService.getBuildbotServerInfo();
+  }
 }
