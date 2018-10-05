@@ -13,16 +13,18 @@ export class BuildbotService {
 
   private readonly backendUrl = 'http://localhost:3000';
 
+
   constructor(private httpClient: HttpClient) {
   }
 
   getBuilders(): Observable<Builder[]> {
     // if masterids ==0 then old builder  => remove
-    return this.httpClient.get<BuilderResponse>(this.backendUrl + '/buildbot/builders').pipe(
-    map(response => response.builders
-      .filter( (builder) => builder.masterids.length !== 0)),
-
-    );
+    return this.httpClient.get<BuilderResponse>(this.backendUrl + '/buildbot/builders')
+      .pipe(
+        map(response => response.builders
+          .filter((builder) => builder.masterids.length !== 0),
+        ),
+      );
   }
 
   getBuilderBuilds(builderId: number): Observable<Build[]> {
@@ -33,9 +35,10 @@ export class BuildbotService {
 
   getPendingBuilds(): Observable<number> {
     return this.httpClient.get<BuildResponse>(this.backendUrl + '/buildbot/progress').pipe(
-      map(response => response.meta.total)
+      map(response => response.meta.total),
     );
   }
+
   getServerInfo(): Observable<ServerInfo> {
     return this.httpClient.get<ServerInfo>(this.backendUrl + '/buildbot/info');
   }

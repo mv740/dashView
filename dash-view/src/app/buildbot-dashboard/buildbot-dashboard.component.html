@@ -15,7 +15,7 @@
     </mat-grid-tile>
   </mat-grid-list>
   <mat-grid-list [cols]="breakpoint" gutterSize="24px" rowHeight="320px" (window:resize)="onResize($event)">
-    <mat-grid-tile *ngFor="let builder of (builders) | async">
+    <mat-grid-tile *ngFor="let builder of (builders)| async ; trackBy: trackByBuilder ">
 
     <app-builder-card [builderData]="builder" [serverInfo]="buildBotServerInfo"></app-builder-card>
     </mat-grid-tile>

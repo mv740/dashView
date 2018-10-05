@@ -1,10 +1,11 @@
 import { BuildbotService } from './buildbot.service';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Builder } from 'shared/buildbot/builder.model';
-import { Observable } from 'rxjs';
+import { Observable, interval  } from 'rxjs';
 import { NotificationType } from './notification-card/notification.type';
 import { ServerInfo } from 'shared/buildbot/server-info.model';
+import { distinct, distinctUntilChanged , share, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-buildbot-dashboard',
@@ -14,7 +15,7 @@ import { ServerInfo } from 'shared/buildbot/server-info.model';
 export class BuildbotDashboardComponent implements OnInit {
 
   /** Based on the screen size, switch from standard to one column per row */
-  builders: Observable<Builder[]>;
+  @Input() builders: Observable<Builder[]>;
 
   breakpoint: number;
   NotificationType = NotificationType;
@@ -32,7 +33,14 @@ export class BuildbotDashboardComponent implements OnInit {
   ngOnInit() {
     // called after the constructor and called  after the first ngOnChanges()
     this.breakpoint = this.GetGridListCol(window.innerWidth);
-    this.builders = this.buildbotService.getBuilders();
+    //this.builders = this.buildbotService.getBuilders();
+    // add new builder if builderid is different
+    this.builders = interval(60000) // 60 secound check if new builder exist
+      .pipe(
+        startWith(0),
+        switchMap(() => this.buildbotService.getBuilders()),
+        distinct((builder: Builder) => builder.builderid)
+       );
   }
 
   onResize(event) {
@@ -63,5 +71,10 @@ export class BuildbotDashboardComponent implements OnInit {
       return 1;
     }
     return 4;
+  }
+
+  trackByBuilder(index: number, item: Builder)
+  {
+    return item.builderid;
   }
 }

@@ -2,7 +2,9 @@ import { Builder } from 'shared/buildbot/builder.model';
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Build } from 'shared/buildbot/build.model';
 import { BuildbotService } from '../buildbot.service';
-import { Observable, Subscription } from 'rxjs';
+import { interval, Observable, Subscription } from 'rxjs';
+import { distinct, share, startWith, switchMap } from 'rxjs/operators';
+
 import { ServerInfo } from 'shared/buildbot/server-info.model';
 
 @Component({
@@ -28,13 +30,22 @@ export class BuilderCardComponent implements OnChanges, OnDestroy {
   ngOnChanges(): void {
     this.infoUrl = `${this.serverInfo.url}/#/builders/${this.builderData.builderid}`;
     this.infoBuildUrl = `${this.serverInfo.url}/#/builders/${this.builderData.builderid}/builds/`;
-    this.builds = this.buildbotService.getBuilderBuilds(this.builderData.builderid);
+    // https://stackoverflow.com/questions/50885262/replacing-the-share-function-for-in-rxjs6
+    // without share, new subscribe will trigger secound request
+   // this.builds = this.buildbotService.getBuilderBuilds(this.builderData.builderid).pipe(share());
+    this.builds = interval(20000) // 60 secound check if new builder exist
+      .pipe(
+        startWith(0),
+        switchMap(() => this.buildbotService.getBuilderBuilds(this.builderData.builderid)),
+        distinct((build: Build) => build.buildid),
+        share()
+      );
+
     this.buildsSubscription = this.builds.subscribe((builds) => {
       if (builds.length > 0) {
         this.errorOnLastBuild = builds[0].results !== 0;
         this.isInProgress = !builds[0].complete;
       }
-
     });
   }
 
