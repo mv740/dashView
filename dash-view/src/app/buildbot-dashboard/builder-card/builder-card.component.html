@@ -17,14 +17,18 @@
       <mat-list dense>
         <!--https://youtrack.jetbrains.com/issue/WEB-32320-->
         <mat-list-item
-          class="mat-list-item-focus-hover" *ngFor="let build of builds | async" (click)="openBuild($event, build.number)">
-          <p mat-line># {{build.number}}   {{ unixTimeToDateConverter(build.complete_at) | date:'MM/dd/yy hh:mm'}} </p>
-          <p *ngIf="!isInProgress; else showLoading">
-            <mat-icon [ngStyle]="{ color: getColor(build.results)}" >{{getStatusIcon(build.results)}}</mat-icon>
+          class="mat-list-item-focus-hover" *ngFor="let build of builds | async; index as i" (click)="openBuild($event, build.number)">
+          <p mat-line># {{build.number}}
+            <span [hidden]="isInProgress && i ===0" style="margin-left: 20px">
+              {{ unixTimeToDateConverter(build.complete_at) | date:'MM/dd/yy hh:mm'}}
+            </span>
           </p>
-          <ng-template #showLoading>
+          <p *ngIf="(isInProgress && (i ===0)); else showOtherStatus">
+            <mat-icon svgIcon="in_progress_circle">in_progress_circle</mat-icon>
+          </p>
+          <ng-template #showOtherStatus>
             <p>
-              <mat-icon svgIcon="in_progress_circle">in_progress_circle</mat-icon>
+              <mat-icon [ngStyle]="{ color: getColor(build.results)}" >{{getStatusIcon(build.results)}}</mat-icon>
             </p>
           </ng-template>
         </mat-list-item>

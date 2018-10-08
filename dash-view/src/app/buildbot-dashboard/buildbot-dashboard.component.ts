@@ -39,7 +39,9 @@ export class BuildbotDashboardComponent implements OnInit {
       .pipe(
         startWith(0),
         switchMap(() => this.buildbotService.getBuilders()),
-        distinct((builder: Builder) => builder.builderid)
+        distinctUntilChanged( (prevBuilders, newBuilders) => {
+          return JSON.stringify(prevBuilders) === JSON.stringify(newBuilders);
+        }),
        );
   }
 
