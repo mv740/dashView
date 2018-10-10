@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Notification Center</h2>
+<!--#00c292-->
+
+<mat-list>
+  <mat-list-item *ngFor="let message of messages; index" style="background:  #424242; margin-top: 10px; color: white;">
+    <!--error , warning , done -->
+    <mat-icon matListIcon>error</mat-icon>
+    <h3 matLine > {{message}} </h3>
+    <p matLine >
+      <span> {{message}} </span>
+      <span class="demo-2"> -- {{message}} </span>
+    </p>
+    <button mat-raised-button (click)="removeNotification(index)">X</button>
+  </mat-list-item>
+</mat-list>
+

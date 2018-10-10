@@ -6,6 +6,7 @@ import { interval, Observable, Subscription, from } from 'rxjs';
 import { concatMap, distinct, distinctUntilChanged, flatMap, share, startWith, switchMap } from 'rxjs/operators';
 
 import { ServerInfo } from 'shared/buildbot/server-info.model';
+import { NotificationService } from '../../notification/notification.service';
 
 @Component({
   selector: 'app-builder-card',
@@ -24,7 +25,7 @@ export class BuilderCardComponent implements OnChanges, OnDestroy {
   infoUrl: string;
   infoBuildUrl: string;
 
-  constructor(private buildbotService: BuildbotService) {
+  constructor(private buildbotService: BuildbotService, private notificationService: NotificationService) {
   }
 
   ngOnChanges(): void {
@@ -47,11 +48,14 @@ export class BuilderCardComponent implements OnChanges, OnDestroy {
       if (builds.length > 0) {
         this.errorOnLastBuild = builds[0].results !== 0;
         // if complete = not in progress
+
         this.isInProgress = !builds[0].complete;
 
         console.log(this.isInProgress);
+        this.notificationService.createNotification(`build ${builds[0].buildid} is in progress`);
         if (builds[0].complete) {
           console.log('BUILD IN PROGRESS');
+          this.notificationService.createNotification(`build ${builds[0].buildid} is complete`);
         }
       }
     });

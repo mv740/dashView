@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { NotificationType } from './notification.type';
-import { BuildbotService } from '../buildbot.service';
+import { BuildbotService } from '../../buildbot-dashboard/buildbot.service';
 import { Observable } from 'rxjs';
 
 @Component({

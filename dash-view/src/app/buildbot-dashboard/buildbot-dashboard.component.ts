@@ -3,7 +3,7 @@ import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Builder } from 'shared/buildbot/builder.model';
 import { Observable, interval  } from 'rxjs';
-import { NotificationType } from './notification-card/notification.type';
+import { NotificationType } from '../notification/notification-card/notification.type';
 import { ServerInfo } from 'shared/buildbot/server-info.model';
 import { distinct, distinctUntilChanged , share, startWith, switchMap } from 'rxjs/operators';
 
@@ -75,8 +75,7 @@ export class BuildbotDashboardComponent implements OnInit {
     return 4;
   }
 
-  trackByBuilder(index: number, item: Builder)
-  {
+  trackByBuilder(index: number, item: Builder) {
     return item.builderid;
   }
 }
