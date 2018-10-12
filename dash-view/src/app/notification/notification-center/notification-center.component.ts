@@ -1,25 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { NotificationDialogComponent } from './notification-dialog/notification-dialog.component';
 import { NotificationService } from '../notification.service';
 import { take, takeUntil } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
 
-export interface NotificationData {
-  messages: Array<string>;
-}
+// export interface NotificationData {
+//   messages: Array<string>;
+// }
 
 @Component({
   selector: 'app-notification-center',
   templateUrl: './notification-center.component.html',
   styleUrls: ['./notification-center.component.css'],
 })
-export class NotificationCenterComponent implements OnInit {
+export class NotificationCenterComponent implements OnInit, OnDestroy {
 
   messages: Array<string> = [];
+  messageSubscription: Subscription;
 
   constructor(public dialog: MatDialog, private notificationService: NotificationService) {
-    this.notificationService.notification.subscribe(newMessage =>
-      this.updateNotification(newMessage),
+    this.messageSubscription = this.notificationService.notification.subscribe(newMessage => {
+        console.log('notification triggered');
+        this.updateNotification(newMessage);
+      },
     );
   }
 
@@ -29,7 +33,6 @@ export class NotificationCenterComponent implements OnInit {
       this.messages.unshift(message);
     }
   }
-
 
 
   ngOnInit() {
@@ -45,8 +48,14 @@ export class NotificationCenterComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      console.log(`result => ${JSON.stringify(result)}`);
+      this.messages = result;
       // this.animal = result;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.messageSubscription.unsubscribe();
   }
 
 

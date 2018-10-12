@@ -33,15 +33,15 @@ export class BuilderCardComponent implements OnChanges, OnDestroy {
     this.infoBuildUrl = `${this.serverInfo.url}/#/builders/${this.builderData.builderid}/builds/`;
     // https://stackoverflow.com/questions/50885262/replacing-the-share-function-for-in-rxjs6
     // without share, new subscribe will trigger secound request
-   // this.builds = this.buildbotService.getBuilderBuilds(this.builderData.builderid).pipe(share());
+    // this.builds = this.buildbotService.getBuilderBuilds(this.builderData.builderid).pipe(share());
     this.builds = interval(5000) // 20 secound check if new builder exist
       .pipe(
         startWith(0),
         switchMap(() => this.buildbotService.getBuilderBuilds(this.builderData.builderid)),
-        distinctUntilChanged( (prevBuilds, newBuilds) => {
+        distinctUntilChanged((prevBuilds, newBuilds) => {
           return JSON.stringify(prevBuilds) === JSON.stringify(newBuilds);
         }),
-        share()
+        share(),
       );
 
     this.buildsSubscription = this.builds.subscribe((builds) => {
@@ -51,10 +51,9 @@ export class BuilderCardComponent implements OnChanges, OnDestroy {
 
         this.isInProgress = !builds[0].complete;
 
-        console.log(this.isInProgress);
-        this.notificationService.createNotification(`build ${builds[0].buildid} is in progress`);
-        if (builds[0].complete) {
-          console.log('BUILD IN PROGRESS');
+        if (this.isInProgress) {
+          this.notificationService.createNotification(`build ${builds[0].buildid} is in progress`);
+        } else {
           this.notificationService.createNotification(`build ${builds[0].buildid} is complete`);
         }
       }

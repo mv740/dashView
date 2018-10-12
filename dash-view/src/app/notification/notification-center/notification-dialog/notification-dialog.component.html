@@ -1,16 +1,36 @@
 <h2 mat-dialog-title>Notification Center</h2>
 <!--#00c292-->
 
-<mat-list>
-  <mat-list-item *ngFor="let message of messages; index" style="background:  #424242; margin-top: 10px; color: white;">
-    <!--error , warning , done -->
-    <mat-icon matListIcon>error</mat-icon>
-    <h3 matLine > {{message}} </h3>
-    <p matLine >
-      <span> {{message}} </span>
-      <span class="demo-2"> -- {{message}} </span>
-    </p>
-    <button mat-raised-button (click)="removeNotification(index)">X</button>
-  </mat-list-item>
-</mat-list>
+<!--<mat-list>-->
+<!--<mat-list-item *ngFor="let message of messages; index" style="background:  #424242; margin-top: 10px; color: white;">-->
+<!--&lt;!&ndash;error , warning , done &ndash;&gt;-->
+<!--<mat-icon matListIcon>error</mat-icon>-->
+<!--<h3 matLine > {{message}} </h3>-->
+<!--<p matLine >-->
+<!--<span> {{message}} </span>-->
+<!--<span class="demo-2"> &#45;&#45; {{message}} </span>-->
+<!--</p>-->
+<!--<button mat-raised-button (click)="removeNotification(index)">X</button>-->
+<!--</mat-list-item>-->
+<!--</mat-list>-->
 
+
+<mat-list>
+  <mat-card dense *ngFor="let message of messages; index" style="margin-top: 10px">
+    <button mat-icon-button [disableRipple]="true" style="position: absolute; right: 5px; top: 5px;" (click)="removeNotification(index)">
+      <mat-icon style="color: darkgray;" aria-label="Example icon-button with a heart icon">clear</mat-icon>
+    </button>
+    <mat-list-item class="dense-display">
+      <div mat-list-avatar>
+        <mat-icon style="background: white; color: red">error</mat-icon>
+      </div>
+
+      <!--<img mat-list-avatar src="..." alt="Desc 1">-->
+      <h3 mat-line>{{message}}</h3>
+
+      <p mat-line style="color: darkgray">
+        <span>An awesome description</span>
+      </p>
+    </mat-list-item>
+  </mat-card>
+</mat-list>
