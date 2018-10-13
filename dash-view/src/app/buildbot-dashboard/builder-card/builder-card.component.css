@@ -46,7 +46,6 @@ mat-card mat-chip.rectangleChip{
     }
 }
 
-
 mat-card.progressAnimation {
     animation-duration: 0.4s;
     animation-name: borderWidth;

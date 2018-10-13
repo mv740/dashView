@@ -1,3 +1,23 @@
 ::ng-deep .dense-display .mat-list-item-content{
   padding: 0 0 0 0 !important;
 }
+
+.remove-button-display {
+  visibility: hidden;
+  position: absolute;
+  right: 5px; top: 5px;
+}
+
+.notificationMessage{
+  margin-top: 10px;
+  /*padding: 12px 24px 24px 12px;*/
+}
+
+.notificationMessage:hover {
+  background-color: rgba(70, 70, 70, 1);
+}
+
+
+.notificationMessage:hover > .remove-button-display {
+  visibility: visible;
+}
