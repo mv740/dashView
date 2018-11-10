@@ -1,8 +1,8 @@
 # dashView
 
-### Buildbot Dashboard
+### Buildbot CI Dashboard
 
-- Experimenting with Buildbot's API and trying to create a more modern dashboard 
+- Experimenting with [BuildBot](http://buildbot.net/)'s API and trying to create a more modern dashboard 
 
 
 ### Build Triggered 
